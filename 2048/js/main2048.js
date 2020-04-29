@@ -1,3 +1,4 @@
+
 var board = new Array;
 var score = 0;
 var hasConflicted = new Array();
@@ -12,6 +13,8 @@ function newgame(){
 	//随机两个格子生成两个数
 	generateOneNumber();
 	generateOneNumber();
+	
+	shownewRecord();
 }
 function init(){
 	//构造4*4；
@@ -68,6 +71,8 @@ function updateBoardView(){
 				theNumberCell.css('left',getPosLeft(i,j));
 				theNumberCell.css('background-color',getNumberBackgroundColor(board[i][j]) );
 				theNumberCell.css('color',getNumberColor(board[i][j]) );
+				theNumberCell.css('letter-spacing',indentation(board[i][j]));
+				
 				theNumberCell.text(board[i][j]);
 			}
 			hasConflicted[i][j] = false;
@@ -75,6 +80,8 @@ function updateBoardView(){
 	}
 
 }
+
+
 
 //生成一个数字
 function generateOneNumber(){
@@ -158,12 +165,17 @@ $(document).keydown(function(event){
 
 
 //游戏是否结束
-function isgameover(){
+function isgameover(){//------------------------------------------------
 	if(nospace( board ) && nomove( board )){
 		gameover();
 	}
  }
 function gameover(){
+	var record="record-1"
+	if(getcookie(record)<score || getcookie(record)==undefined){
+		setcookie(record,score,30);
+		shownewRecord();
+	}
 	$("#gameOver").animate({
 		opacity:1
 		},1000);
@@ -227,7 +239,10 @@ function moveLeft(){
 					}
 					else if(( board[i][k]=="×2"||board[i][k] > 0 ) &&noBlockHorizontal(i , k , j ,board) &&!hasConflicted[i][k]){
 						//move
-						showMoveAnimation(i ,j , i ,k);
+						if(board[i][k]=="×2"){
+							showMoveAnimation(i ,j , i ,k+1);
+						}
+						else{showMoveAnimation(i ,j , i ,k);}
 						//add
 						if(board[i][k]=="×2"){
 							if(board[i][j]!="×2")
@@ -293,6 +308,7 @@ function moveUp(){
 						//add
 						if(board[k][j]=="×2"){
 							if(board[i][j]!="×2")
+							
 							board[k][j] = board[i][j]*2;
 							else{
 								continue;
@@ -324,7 +340,10 @@ function moveUp(){
 					}
 					else if(( board[k][j]=="×2" || board[k][j] > 0) &&noBlockVertical(j , k , i,board)&& !hasConflicted[k][j]){
 						//move
-						showMoveAnimation(i ,j , k ,j);
+						if(board[k][j]=="×2"){
+							showMoveAnimation(i ,j , k+1,j);
+						}
+						else{showMoveAnimation(i ,j , k ,j);}
 						//add
 						if(board[k][j]=="×2"){
 							if(board[i][j]!="×2")
@@ -405,7 +424,10 @@ function moveUp(){
 					}
 					else if((board[i][k]=="×2"||board[i][k] >0) &&noBlockHorizontal(i , j , k ,board) && !hasConflicted[i][k]){
 						//move
-						showMoveAnimation(i ,j , i ,k);
+						if(board[i][k]=="×2"){
+							showMoveAnimation(i ,j , i ,k-1);
+						}
+						else{showMoveAnimation(i ,j , i ,k-1);}
 						//add
 						if(board[i][k]=="×2"){
 							if(board[i][j]!="×2")
@@ -484,7 +506,10 @@ function moveUp(){
 						}
 						else if((board[k][j]=="×2"||board[k][j] > 0)&&noBlockVertical(j , i , k , board) && !hasConflicted[k][j]){
 							//move
-							showMoveAnimation(i ,j , k ,j);
+							if(board[k][j]=="×2"){
+								showMoveAnimation(i ,j , k-1 ,j);
+							}
+							else{showMoveAnimation(i ,j , k-1 ,j);}
 							//add
 							if(board[k][j]=="×2"){
 								if(board[i][j]!="×2")
@@ -551,11 +576,18 @@ buttonRight.onclick=function(){
 
 
 
-/*bug 2020.4.3   1.×2在边界时判定会失效使其无法与其他数字累加；
-				 2.×2与×2在相撞时会鬼畜；
+/*bug 2020.4.3   1.×2在边界时判定会失效使其无法与其他数字累加；//已解决是因为在判断canmoveleft时没有判断×2的存在以及判断a[i+1][j]时的可行性；
+				 2.×2与×2在相撞时会鬼畜；-------解决2020.4.5
 待优化
-				 1.最后一个如果是×2可以判定游戏没有失败；
-				 （解决方法可在gameover函数中遍历查找是否有×2）
-				 2.可以优化一下游戏在第一次出现一个新数字时蹦出形如“GOOD”，“GREAT”，“WELL DONE”，“PERFECT”等动画。
+				 1.最后一个如果是×2可以判定游戏没有失败；//已解决问题同1.
+				 （解决方法可在gameover函数中遍历查找是否有×2
+				 
+				 2.可以优化一下游戏在第一次出现一个新数字时蹦出形如“GOOD”，“GREAT”，“WELL DONE”，“PERFECT”等动画。----------
 				 3.可新增历史记录（cookie）
+*/
+
+/*
+
+待优化 1.当数超过1024时会超框；-----解决2020.4.6
+		2.数字超过1000000时变为无穷；
 */

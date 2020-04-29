@@ -30,7 +30,6 @@ function showMoveAnimation(fromx , fromy ,tox , toy){
 
 function updatescore( score ){
 	$('#score').text(score);
-	
 	if(score<=100){
 		$('#score').css({
 			color: "#000000"

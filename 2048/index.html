@@ -8,6 +8,7 @@
 		<script src="js/abimation2048.js"></script>
 		<script src="js/support2048.js"></script>
 		<script src="js/main2048.js"></script>
+		<script src="js/cookie.js"></script>
 	</head>
 	<body>
 		<header>
@@ -46,6 +47,12 @@
 			<button class="button-cell" id="button-cell-down">↓</button>
 			<button class="button-cell" id="button-cell-right">→</button>
 			<button class="button-cell" id="button-cell-left">←</button>
+		</div>
+		
+		<div id="records">
+			<p class="record-title">历史记录</p>
+			<p class="record-1"></p>
+			<a href="javascript:recordsclear();" class="recordsClear">清除记录</a>
 		</div>
 		
 	</body>

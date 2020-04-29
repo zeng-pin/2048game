@@ -20,8 +20,9 @@ function getNumberBackgroundColor(number){
 		case 2048:return "#0099cc";break;
 		case 4096:return "#aa66cc";break;
 		case 8192:return "#9933cc";break;
+		
 	}
-	
+	if (number>8192){return "#501a6b";}
 }
 //文字颜色
 function getNumberColor(number){
@@ -32,6 +33,23 @@ function getNumberColor(number){
 		return "#ffffff";
 	}
 }
+
+function indentation(number){
+	if(number>=1024){
+		return"-12px";
+	}
+	else if(number>=10000){
+		return"-20px";
+	}
+	else{
+		return"0px";
+	}
+}
+
+
+
+
+
 //是否有空间剩余
 function nospace(number){
 	for(var i = 0 ;i < 4 ;i ++)
@@ -68,7 +86,7 @@ function canMoveLeft(){
 	for(var i = 0 ;i < 4 ;i ++)
 		for(var j = 1; j < 4 ; j ++){
 			if(board[i][j] != 0){
-				if(board[i][j-1]==0 || board[i][j-1]==board[i][j] )return true;
+				if(board[i][j-1]==0 || board[i][j-1]==board[i][j]||board[i][j]=="×2"||board[i][j-1]=="×2")return true;
 			}
 			
 		}
@@ -81,7 +99,7 @@ function canMoveUp(){
 	for(var j = 0 ;j < 4 ;j ++)
 		for(var i = 1; i < 4 ; i ++){
 			if(board[i][j] != 0){
-				if(board[i-1][j]==0 || board[i-1][j]==board[i][j] )return true;
+				if(board[i-1][j]==0 || board[i-1][j]==board[i][j]||board[i][j]=="×2" ||board[i-1][j]=="×2")return true;
 			}
 			
 		}
@@ -94,7 +112,7 @@ function canMoveRight(){
 	for(var i = 0 ;i < 4 ;i ++)
 		for(var j = 2; j >=0 ; j --){
 			if(board[i][j] != 0){
-				if(board[i][j+1]==0 || board[i][j+1]==board[i][j] )return true;
+				if(board[i][j+1]==0 || board[i][j+1]==board[i][j]||board[i][j]=="×2"||board[i][j+1]=="×2" )return true;
 			}
 			
 		}
@@ -107,7 +125,7 @@ function canMoveDown(){
 	for(var j = 0; j <4 ; j ++)
 		for(var i = 2 ;i >= 0 ;i --){
 			if(board[i][j] != 0){
-				if(board[i+1][j]==0 || board[i+1][j]==board[i][j] )return true;
+				if(board[i+1][j]==0 || board[i+1][j]==board[i][j]||board[i][j]=="×2"||board[i+1][j]=="×2" )return true;
 			}
 			
 		}
@@ -124,4 +142,17 @@ function nomove( board ){
 		){return false;}
 	return true;
 	
+}
+
+//更新显示cookie
+function shownewRecord(){
+		record=".record-1";
+		$(record).text(getcookie("record-1"));
+}
+
+//清除记录
+function recordsclear(){
+	record="record-1"
+	setcookie(record,'0',30);
+	shownewRecord();
 }
