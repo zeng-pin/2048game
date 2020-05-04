@@ -9,12 +9,19 @@
 		<script src="js/support2048.js"></script>
 		<script src="js/main2048.js"></script>
 		<script src="js/cookie.js"></script>
+		
 	</head>
 	<body>
 		<header>
 			<h1>2048</h1>
 			<a href="javascript:newgame();" id="newGameButton">New Game</a>
+			<input type="checkbox" id="backgroundmusicbuttom"/>
+			<div id="picture-checkmusic">
+				<img src="img/play.png" id="music-play" />
+				<img src="img/stop.png" id="music-stop" />
+			</div>
 			<p id="score-all">score:<span id="score">0</span></p>
+			
 		</header>
 		
 		<div id="grid-container">
@@ -54,6 +61,8 @@
 			<p class="record-1"></p>
 			<a href="javascript:recordsclear();" class="recordsClear">清除记录</a>
 		</div>
+		<audio id="ado" controls=" " src="bgm/bgm.mp3"></audio>
 		
+				<script src="js/music.js"></script>
 	</body>
 </html>

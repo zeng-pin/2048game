@@ -49,7 +49,6 @@ function indentation(number){
 
 
 
-
 //是否有空间剩余
 function nospace(number){
 	for(var i = 0 ;i < 4 ;i ++)

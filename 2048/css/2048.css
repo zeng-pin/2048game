@@ -122,6 +122,8 @@ header p{
 #score-all{
 	font-size: 40px;
 	font-family: "arial black";
+	position: relative;
+	left: -35px;
 }
 #score{
 	color: black;
@@ -158,4 +160,34 @@ header p{
 	font-family: arial;
 	font-size: 60px;
 	font-weight: bold;
+}
+#backgroundmusicbuttom{
+	display: none;
+}
+
+#picture-checkmusic{
+	width: 35px;
+	height: 35px;
+	position: relative;
+	top: -60px;
+	left: 315px;
+	float: left;
+}
+#music-play {
+	width: 35px;
+	height: 35px;
+	position: relative;
+	float: left;
+	opacity: 1;
+}
+#music-stop {
+	width: 35px;
+	height: 35px;
+	position: relative;
+	top: -35px;
+	float: left;
+	opacity: 0;
+}
+#ado{
+	display: none;
 }
